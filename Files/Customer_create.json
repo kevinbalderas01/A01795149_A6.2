@@ -1,0 +1,25 @@
+[
+    {
+        "first_name" : "Kevin",
+        "last_name": "Balderas",
+        "phone_number": "554789845"
+    },{
+        "first_name" : "Juan",
+        "last_name": "Sanchez",
+        "phone_number": "5587985487"
+    },{
+        "first_name" : "Daniel",
+        "last_name": "Gomez",
+        "phone_number": "98764577"
+    },{
+        "first_name" : "Jesus",
+        "last_name": "Hernandez",
+        "phone_number": "154879895"
+    },{
+        "first_name" : "Alexis",
+        "last_name": "Mejia",
+        "phone_number": "65874587"
+    }
+
+]
+   

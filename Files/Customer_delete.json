@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "first_name": "Kevin",
+        "last_name": "Balderas",
+        "phone_number": "554789845"
+    },
+    {
+        "id": 2,
+        "first_name": "Juan",
+        "last_name": "Sanchez",
+        "phone_number": "5587985487"
+    }
+]
