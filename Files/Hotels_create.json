@@ -1,0 +1,20 @@
+[
+    {
+        "name": "The Atlantic",
+        "address": "Av.Beanies, Number 120",
+        "phone_number": "5587898545",
+        "rooms": 40
+    },
+    {
+        "name": "Ceaser Palace The Greatest",
+        "address": "Boulevard of golden roots, 54A",
+        "phone_number": "556254320215",
+        "rooms": 20
+    },
+    {
+        "name": "Roman City",
+        "address": "Street 120 , Between black and white houses",
+        "phone_number": "55485125458",
+        "rooms": 10
+    }
+]

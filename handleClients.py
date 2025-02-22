@@ -11,6 +11,94 @@ import time
 import json
 
 
+class Hotels:
+    '''
+    Class that implements a hotel based on attributes
+    '''
+    def __init__(self):
+        self.hotels = []
+        self.counter = 0
+        self.hotels_filename = 'Hotels.json'
+        self.hotel_name = ''
+        self.hotel_address = ''
+        self.hotel_phone_number = ''
+        self.hotel_rooms = 0
+
+    def generate_id(self):
+        '''
+        Method that generates an id
+        '''
+        self.counter += 1
+        return self.counter
+
+    def create_all_hotels(self, file_name):
+        '''
+        Method that created a bunch of new hotels
+        '''
+        temp_hotels = read_from_json(file_name)
+        for hotel in temp_hotels:
+            try:
+                name = hotel["name"]
+                address = hotel["address"]
+                phone_number = hotel["phone_number"]
+                rooms = hotel["rooms"]
+                new_hotel = self.create_hotel(
+                    name, address, phone_number, rooms)
+                self.hotels.append(new_hotel)
+            except (FileNotFoundError, IndexError) as error:
+                print('Wrong field, You need, id, hotel name,\
+                      address, phone number and rooms', error)
+        write_to_json(self.hotels, 'Hotels.json')
+        self.display_hotel_info()
+        return temp_hotels
+
+    def create_hotel(self, name, address, phone_number, rooms):
+        '''
+        Method that creates a new hotel based on attributes
+        '''
+        self.hotel_name = name
+        self.hotel_address = address
+        self.hotel_phone_number = phone_number
+        self.hotel_rooms = rooms
+
+        id_hotel = self.generate_id()
+        hotel_obj = {'id': id_hotel, 'hotel_name': self.hotel_name,
+                     'hotel_address': self.hotel_address,
+                     'hotel_phone_number': self.hotel_phone_number,
+                     'hotel_rooms': self.hotel_rooms}
+        return hotel_obj
+
+    def display_hotel_info(self):
+        '''
+        Method that displays hotel information, updated information
+        '''
+        db = read_from_json(self.hotels_filename)
+        for hotel in db:
+            print(hotel)
+        return True
+
+    def modify_hotel_info(self, filename):
+        '''
+        Method that modify or updates information only on certain records
+        '''
+        hotels_to_update = read_from_json(filename)
+        db = read_from_json(self.hotels_filename)
+        for hotel in db:
+            for h_update in hotels_to_update:
+                # Just update necesarry items, not all of them
+                if hotel['id'] == h_update['id']:
+                    hotel['id'] = h_update['id']
+                    hotel['hotel_name'] = h_update['name']
+                    hotel['hotel_address'] = h_update['address']
+                    hotel['hotel_phone_number'] = h_update['phone_number']
+                    hotel['hotel_rooms'] = h_update['rooms']
+
+        self.hotels = db
+        write_to_json(self.hotels, 'Hotels.json')
+        self.display_hotel_info()
+        return db
+
+
 class Customers:
     '''
     Class that implements customers based on attributes
@@ -48,6 +136,7 @@ class Customers:
                       last name and phone number', error)
         write_to_json(self.customers)
         self.display_customer_info()
+        return temp_customers
 
     def create_customer(self, first_name, last_name, phone_number):
         '''
@@ -83,6 +172,7 @@ class Customers:
         self.customers = new_customers
         write_to_json(self.customers)
         self.display_customer_info()
+        return new_customers
 
     def display_customer_info(self):
         '''
@@ -91,6 +181,7 @@ class Customers:
         db = read_from_json(self.customer_filename)
         for customer in db:
             print(customer)
+        return True
 
     def modify_customer_info(self, filename):
         '''
@@ -109,6 +200,7 @@ class Customers:
         self.customers = db
         write_to_json(self.customers)
         self.display_customer_info()
+        return db
 
 
 def delete_final_file(path='Customers.json'):
@@ -143,6 +235,7 @@ def main():
     Ejecución principal del programa
     '''
     start_time = time.time()
+    hotels = Hotels()
     customers = Customers()
 
     print('Inicio de programa')
@@ -160,12 +253,20 @@ def main():
     # Reading content from JSON files
     try:
         file_content = sys.argv[2]
+        type_of_file = file_content.split("\\")[-1][0]
         if mode[-1].upper() == 'C':
-            delete_final_file()
-            customers.create(file_content)
+            if type_of_file == "C":
+                delete_final_file()
+                customers.create(file_content)
+            elif type_of_file == "H":
+                delete_final_file('Hotels.json')
+                hotels.create_all_hotels(file_content)
             print('Records created')
         elif mode[-1].upper() == 'U':
-            customers.modify_customer_info(file_content)
+            if type_of_file == "C":
+                customers.modify_customer_info(file_content)
+            elif type_of_file == "H":
+                hotels.modify_hotel_info(file_content)
             print('Records updated')
         elif mode[-1].upper() == 'D':
             customers.delete_customer(file_content)

@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "The Atlantic Artic",
+        "address": "Av.Beanies, Number 120",
+        "phone_number": "5587898568",
+        "rooms": 45
+    },
+    {
+        "id": 2,
+        "name": "Ceaser Palace The Greatest",
+        "address": "Boulevard of golden roots, 54A Av.",
+        "phone_number": "556210320215",
+        "rooms": 25
+    },
+    {
+        "id": 3,
+        "name": "Roman City Greatest",
+        "address": "Street 120 , Between black and white houses , the",
+        "phone_number": "55485125410",
+        "rooms": 15
+    }
+]
